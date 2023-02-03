@@ -1,0 +1,12 @@
+@import "./styles/variables.scss";
+@import url('https://fonts.cdnfonts.com/css/gumela');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Gumela';
+}
+
+body {
+  margin: 0;
+  font-size: 30px;
+}
