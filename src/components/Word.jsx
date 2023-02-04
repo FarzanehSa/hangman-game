@@ -1,6 +1,6 @@
 import './Word.scss'
 
-const Word = () => {
+const Word = ({myWord}) => {
   return (
     <div className="word">
       word

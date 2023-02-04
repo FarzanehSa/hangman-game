@@ -2,4 +2,25 @@
 
 .hangman {
   border: $test2;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+
+  .fix-hang {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: $test;
+  }
+
+  circle,
+  rect,
+  line {
+  stroke-width: 1px;
+  stroke-linecap: round;
+  fill: transparent;
+  }
 }

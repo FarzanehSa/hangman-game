@@ -31,15 +31,7 @@ const Hangman = () => {
   const [wrongAnswer, setWrongAnswer] = useState(0);
 
   const handleClick = () => {
-    console.log("0000");
-    setWrongAnswer(wrongAnswer + 1)
-    // let flag = false;
-    // setMan(man.map(row => {
-    //   if (!flag && row === "hidden") {
-    //     flag = true;
-    //     return "visible";
-    //   } else return row;
-    // }))
+    setWrongAnswer(wrongAnswer + 1);
   }
 
   useEffect(() => {
@@ -95,12 +87,12 @@ const Hangman = () => {
   return (
     <div className="hangman">
       <motion.svg
-        width="200"
-        height="200"
+        // width="300"
+        // height="300"
         viewBox="0 0 100 100"
         initial="hidden"
         animate="visible"
-        className="test"
+        className="fix-hang"
       >
         <motion.line
           x1="0"
@@ -141,12 +133,11 @@ const Hangman = () => {
       </motion.svg>
 
       <motion.svg
-        width="200"
-        height="200"
+        // width="200"
+        // height="200"
         viewBox="0 0 100 100"
         initial="hidden"
-        
-        className="test"
+        className="fix-hang"
         >
         <motion.circle
           cx="45"
@@ -154,7 +145,8 @@ const Hangman = () => {
           r="7"
           stroke="#ff0055"
           variants={draw}
-          animate={man.head}
+          animate="visible"
+          // animate={man.head}
           custom={0}
         />
         <motion.line
@@ -208,7 +200,6 @@ const Hangman = () => {
           custom={3}
         />
       </motion.svg>
-      <button className="btn" onClick={ handleClick }>Click</button>
     </div>
   )
 }
