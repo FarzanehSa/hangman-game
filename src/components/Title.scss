@@ -2,4 +2,20 @@
 
 .title {
   border: $test2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  .t-title {
+    font-family: $title-font-family;
+    font-size: 4rem;
+    color: white;
+  }
+
+  .t-help {
+    color: white;
+  }
 }
