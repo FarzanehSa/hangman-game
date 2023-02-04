@@ -122,8 +122,8 @@ function App() {
       <div className='a-title'>
         <Title />
       </div>
-      <div className='a-hangman' wrongAnswer={wrongAnswer}>
-        <Hangman />
+      <div className='a-hangman'>
+        <Hangman wrongAnswer={wrongAnswer}/>
       </div>
       <div className='a-word'>
         <Word myWord={myWord} myLetter={myLetter} wordObj={wordObj} setMyLetter={setMyLetter} keyboard={keyboard}/>

@@ -17,7 +17,7 @@ const draw = {
   }
 };
 
-const Hangman = () => {
+const Hangman = ({wrongAnswer}) => {
 
   const [man, setMan] = useState({
     body: "hidden",
@@ -28,11 +28,6 @@ const Hangman = () => {
     rLeg: "hidden",
   });
 
-  const [wrongAnswer, setWrongAnswer] = useState(0);
-
-  const handleClick = () => {
-    setWrongAnswer(wrongAnswer + 1);
-  }
 
   useEffect(() => {
 
@@ -145,8 +140,7 @@ const Hangman = () => {
           r="7"
           stroke="#ff0055"
           variants={draw}
-          animate="visible"
-          // animate={man.head}
+          animate={man.head}
           custom={0}
         />
         <motion.line
@@ -157,7 +151,7 @@ const Hangman = () => {
           stroke="#ff0055"
           variants={draw}
           animate={man.body}
-          custom={1.5}
+          custom={0}
         />
         <motion.line
           x1="45"
@@ -167,7 +161,7 @@ const Hangman = () => {
           stroke="#ff0055"
           variants={draw}
           animate={man.lHand}
-          custom={2}
+          custom={0}
         />
         <motion.line
           x1="45"
@@ -177,7 +171,7 @@ const Hangman = () => {
           stroke="#ff0055"
           variants={draw}
           animate={man.rHand}
-          custom={2.5}
+          custom={0}
         />
         <motion.line
           x1="45"
@@ -187,7 +181,7 @@ const Hangman = () => {
           stroke="#ff0055"
           variants={draw}
           animate={man.lLeg}
-          custom={2.5}
+          custom={0}
         />
         <motion.line
           x1="45"
@@ -197,7 +191,7 @@ const Hangman = () => {
           stroke="#ff0055"
           variants={draw}
           animate={man.rLeg}
-          custom={3}
+          custom={0}
         />
       </motion.svg>
     </div>

@@ -4,6 +4,7 @@
   border: $test2;
   height: 100%;
   width: 100%;
+  
 
   .char-btns {
 
@@ -38,10 +39,29 @@
         width: 2rem;
         border-bottom: 2px solid red;
         transform: rotate(45deg);
+        transition: all 5s ease-in-out;
+
+        animation: animationDiagLine 2s 1;
+        animation-fill-mode:forwards;
       }
 
       .diag-line-hidden {
         display: none;
+      }
+
+      @keyframes animationDiagLine {
+        0% {opacity: 0; 
+          filter: blur(10px);
+          -webkit-filter: blur(10px);
+          -moz-filter: blur(10px);
+          -ms-filter: blur(10px);
+          }
+        100% {opacity: 1;
+          filter: blur(0px);
+          -webkit-filter: blur(0px);
+          -moz-filter: blur(0px);
+          -ms-filter: blur(0px);
+        }
       }
     }
 
