@@ -5,6 +5,8 @@ import Title from './components/Title';
 import Hangman from './components/Hangman';
 import Word from './components/Word';
 import Control from './components/Control';
+
+import failureSound from './assets/failureSound.wav';
 import './App.scss';
 
 function App() {
@@ -13,6 +15,7 @@ function App() {
   const [wordObj, setWordObj] = useState([])
   const [myLetter, setMyLetter] = useState();
   const [wrongAnswer, setWrongAnswer] = useState(0);
+  const [volume, setVolume] = useState(0.2);
   const [keyboard, setKeyboard] = useState([
     {letter: "a", show: "A", check: 0},
     {letter: "b", show: "B", check: 0},
@@ -43,6 +46,7 @@ function App() {
   ]);
 
   useEffect(() => {
+
     // axios.get('https://api.datamuse.com/words?sp=a&max=1')
     // axios.get('https://random-word-api.herokuapp.com/word?length=5')
     axios.get('https://random-word-api.vercel.app/api?words=1')
@@ -89,6 +93,9 @@ function App() {
       }));
     } 
     if (myLetter && myWord.indexOf(myLetter) === -1) {
+      const au = new Audio(failureSound);
+      au.volume = volume;
+      au.play();
       setWrongAnswer(pre => pre + 1);
       setKeyboard(keyboard.map(row => {
         if (myLetter === row.letter) {
@@ -129,7 +136,7 @@ function App() {
         <Word myWord={myWord} myLetter={myLetter} wordObj={wordObj} setMyLetter={setMyLetter} keyboard={keyboard}/>
       </div>
       <div className='a-control'>
-        <Control />
+        <Control volume={volume} setVolume={setVolume}/>
       </div>
     </div>
   );
