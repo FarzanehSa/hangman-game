@@ -7,6 +7,7 @@ import Word from './components/Word';
 import Control from './components/Control';
 
 import failureSound from './assets/failureSound.wav';
+import correctSound from './assets/correctSound.wav';
 import './App.scss';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
   const [myLetter, setMyLetter] = useState();
   const [wrongAnswer, setWrongAnswer] = useState(0);
   const [volume, setVolume] = useState(0.2);
+  const [musicVolume, setMusicVolume] = useState(0.5);
   const [keyboard, setKeyboard] = useState([
     {letter: "a", show: "A", check: 0},
     {letter: "b", show: "B", check: 0},
@@ -79,6 +81,9 @@ function App() {
 
   useEffect(() => {
     if (myLetter && myWord.indexOf(myLetter) !== -1) {
+      const au = new Audio(correctSound);
+      au.volume = volume;
+      au.play();
       setKeyboard(keyboard.map(row => {
         if (myLetter === row.letter) {
           return ({...row, check: 1});
@@ -126,6 +131,14 @@ function App() {
 
   return (
     <div className="app">
+      {/* <Modal
+          isOpen={successfullBook}
+          onRequestClose={closeModal}
+          appElement={document.getElementById('root')}
+          className="modal"
+        >
+          {successfullBook && <SuccessfullBook date={successBookInfo.date} info={successBookInfo.savedData} onClose={closeModal} />}
+      </Modal> */}
       <div className='a-title'>
         <Title />
       </div>
@@ -136,7 +149,7 @@ function App() {
         <Word myWord={myWord} myLetter={myLetter} wordObj={wordObj} setMyLetter={setMyLetter} keyboard={keyboard}/>
       </div>
       <div className='a-control'>
-        <Control volume={volume} setVolume={setVolume}/>
+        <Control volume={volume} setVolume={setVolume} musicVolume={musicVolume} setMusicVolume={setMusicVolume}/>
       </div>
     </div>
   );

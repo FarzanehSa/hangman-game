@@ -15,30 +15,15 @@
 
     .char-btn {
 
-      cursor: pointer;
+      @include g-button;
       height: 2.5rem;
       width: 2.5rem;
-      margin: 0.2rem;
-      border-radius: 10px;
-      // border: 1px solid gold;
-      // background-color: gold;
-      // color: black;
-      // font-size: 1.5rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       position: relative;
 
       color: #fff;
       background-color: goldenrod;
-      background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 87% at 26% 20%, rgba(255, 255, 255, 0.41) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
-      box-shadow: 2px 19px 31px rgba(0, 0, 0, 0.2);
       font-weight: bold;
-      font-size: 16px;
-      border: 0;
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: manipulation;
+      font-size: 1.3rem;
 
       .diag-line-show {
         display: inline-block;
@@ -76,26 +61,15 @@
     }
 
     .char-btn-correct {
-      // background-color: LightGoldenrodYellow;
-      // border-color: LightGoldenrodYellow;
       background-color: silver;
       background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 60.18%), radial-gradient(66% 87% at 26% 20%, rgba(255, 255, 255, 0.41) 10%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 60%);
-      // color: black;
     }
 
     .char-btn-wrong {
-      // background-color: LightGoldenrodYellow;
-      // border-color: LightGoldenrodYellow;
-      // color: gray;
       background-color: silver;
       background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 60.18%), radial-gradient(66% 87% at 26% 20%, rgba(255, 255, 255, 0.41) 10%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 60%);
-      // color: gray;
     }
 
-    .test {
-      height: 2.5rem;
-      width: 2rem;
-    }
   }
 
   .showed-correct {

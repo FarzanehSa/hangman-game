@@ -2,4 +2,38 @@
 
 .control {
   border: $test2;
+
+  .box {
+    .btn-volume {
+      @include g-button;
+
+      height: 2.5rem;
+      width: 3.1rem;
+      position: relative;
+
+      color: #fff;
+      background-color: goldenrod;
+      font-weight: bold;
+      font-size: 1.3rem;
+
+      .diag-line-show {
+        display: inline-block;
+        position: absolute;
+        top: -0.5rem;
+        left: 1rem;
+        height: 2rem;
+        width: 2rem;
+        border-bottom: 3px solid red;
+        transform: rotate(45deg);
+      }
+
+      .diag-line-hidden {
+        display: none;
+      }
+    }
+    
+    .mute {
+
+    }
+  }
 }
