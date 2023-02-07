@@ -39,10 +39,7 @@ const Hangman = ({wrongAnswer, endGame}) => {
         rLeg: "hidden",
       });
     } 
-    // else if (endGame === "no") {
-    //   setClassL("letter-h");
-    // }
-  }, [endGame]);
+  }, [endGame]); // eslint-disable-line
 
   useEffect(() => {
     switch(wrongAnswer) {
@@ -99,7 +96,7 @@ const Hangman = ({wrongAnswer, endGame}) => {
           rLeg: "hidden",
         });
     }
-  }, [wrongAnswer]);
+  }, [wrongAnswer]); // eslint-disable-line
 
   return (
     <div className="hangman">

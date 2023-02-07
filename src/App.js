@@ -137,7 +137,7 @@ function App() {
         }));
       }
     }
-  }, [inputLetter]);  // eslint-disable-line
+  }, [inputLetter]); // eslint-disable-line
 
   useEffect(() => {
     // 💡 find out when you win

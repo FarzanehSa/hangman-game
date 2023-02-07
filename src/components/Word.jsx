@@ -1,22 +1,6 @@
 import { useEffect, useState } from 'react';
-import { motion } from "framer-motion";
 
 import './Word.scss';
-
-const draw = {
-  hidden: { pathLength: 0, opacity: 0 },
-  visible: (i) => {
-    const delay = 1 + i * 0.5;
-    return {
-      pathLength: 1,
-      opacity: 1,
-      transition: {
-        pathLength: { delay, type: "spring", duration: 1.5, bounce: 0 },
-        opacity: { delay, duration: 0.01 }
-      }
-    };
-  }
-};
 
 const Word = ({secretWordArr, setInputLetter, keyboard, endGame}) => {
 
@@ -24,13 +8,11 @@ const Word = ({secretWordArr, setInputLetter, keyboard, endGame}) => {
   
   useEffect(() => {
     if (endGame === "lose") {
-      console.log('here');
       setClassL("letter-end");
     } else if (endGame === "no") {
       setClassL("letter-h");
     }
-    console.log(classL);
-  }, [endGame]);
+  }, [endGame]); // eslint-disable-line
 
   const myWordDiv = secretWordArr.map((row, index) => {
     return (
@@ -62,11 +44,9 @@ const Word = ({secretWordArr, setInputLetter, keyboard, endGame}) => {
       <div className='char-btns'>
         {charButtonArr}
       </div>
-
       <div className='showed-correct'>
         {myWordDiv}
       </div>
-      
     </div>
   )
 }

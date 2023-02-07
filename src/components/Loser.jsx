@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './Loser.scss';
 
 const Loser = ({onNewGame}) => {
