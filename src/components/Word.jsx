@@ -18,7 +18,7 @@ const draw = {
   }
 };
 
-const Word = ({myWord, myLetter, wordObj, setMyLetter, keyboard, endGame}) => {
+const Word = ({secretWordArr, setInputLetter, keyboard, endGame}) => {
 
   const [classL, setClassL] = useState();
   
@@ -32,7 +32,7 @@ const Word = ({myWord, myLetter, wordObj, setMyLetter, keyboard, endGame}) => {
     console.log(classL);
   }, [endGame]);
 
-  const myWordDiv = wordObj.map((row, index) => {
+  const myWordDiv = secretWordArr.map((row, index) => {
     return (
       <div className='letter' key={index}>
         <span className={row.found ? 'letter-v' : `${classL}`}>
@@ -51,7 +51,7 @@ const Word = ({myWord, myLetter, wordObj, setMyLetter, keyboard, endGame}) => {
       <button 
         className={classN}
         key={index}
-        onClick={() => {setMyLetter(row.letter)}}
+        onClick={() => {setInputLetter(row.letter)}}
         disabled={row.check}>{row.show}
         <div className={row.check === 2 ? "diag-line-show" : "diag-line-hidden"}></div>
       </button>)

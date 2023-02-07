@@ -17,15 +17,10 @@ import './App.scss';
 
 function App() {
 
-  const [myWord, setMyWord] = useState("");
-  const [wordObj, setWordObj] = useState([]);
-  const [myLetter, setMyLetter] = useState();
-  const [wrongAnswer, setWrongAnswer] = useState(0);
-  const [volume, setVolume] = useState(0.2);
-  const [musicVolume, setMusicVolume] = useState(0.5);
-  const [winner, setWinner] = useState(false);
-  const [loser, setLoser] = useState(false);
-  const [endGame, setEndGame] = useState("no");
+  const [secretWord, setSecretWord] = useState("");
+  const [secretWordArr, setSecretWordArr] = useState([]);
+  // 💡 all keyboard charecters, 
+  // 💡 check -> 0 : not checked yet - 1: correct - 2: wrong
   const [keyboard, setKeyboard] = useState([
     {letter: "a", show: "A", check: 0},
     {letter: "b", show: "B", check: 0},
@@ -54,84 +49,101 @@ function App() {
     {letter: "y", show: "Y", check: 0},
     {letter: "z", show: "Z", check: 0},
   ]);
+  const [inputLetter, setInputLetter] = useState();
+  const [wrongAnswer, setWrongAnswer] = useState(0);
+  const [endGame, setEndGame] = useState("no");
+  // 💡 control modals
+  const [winner, setWinner] = useState(false);
+  const [loser, setLoser] = useState(false);
+  const [volume, setVolume] = useState(0.2);
+  const [musicVolume, setMusicVolume] = useState(0.5);
+
+  const newGame = () => {
+    // 💡 3 different APIs , set secret word!
+    // axios.get('https://api.datamuse.com/words?sp=a&max=1');
+    // axios.get('https://random-word-api.herokuapp.com/word?length=5');
+    axios.get('https://random-word-api.vercel.app/api?words=1')
+    .then(res => {
+      setSecretWord(res.data[0]);
+    });
+  }
 
   useEffect(() => {
-
+    // 💡 run new game and ready to get input characters!
     newGame();
     document.addEventListener("keydown", detectKeyDown, false);
     return () => {
       document.removeEventListener('keydown', detectKeyDown);
     };
-
   }, []);
 
-  const newGame = () => {
-    // axios.get('https://api.datamuse.com/words?sp=a&max=1');
-    // axios.get('https://random-word-api.herokuapp.com/word?length=5');
-    axios.get('https://random-word-api.vercel.app/api?words=1')
-    .then(res => {
-      setMyWord(res.data[0]);
-    });
-  }
-
-  const onNewGame = () => {
-    newGame();
-    closeModal();
-    setWrongAnswer(0);
-    setEndGame("no")
-  }
-
   useEffect(() => {
-    let wArr = [];
-    for (let i = 0; i < myWord.length; i++) {
-      wArr.push({
-        letter: myWord[i],
-        found: false
+    // 💡 after get the secret word, create the word arr.
+    // 💡 make sure wrong answer is 0.
+    // 💡 and keyboards are all in position that not checked letters.
+    // 💡 set endGame state
+    // close All modals
+    const wordArr = secretWord.split('').map(char => {
+      return ({
+        letter: char,
+        found: false,
       })
-    }
-    setWordObj(wArr);
+    });
+    setSecretWordArr(wordArr);
     setWrongAnswer(0);
-    setKeyboard(keyboard.map(row => {
+    setEndGame("no");
+    setKeyboard(k => k.map(row => {
       return ({...row, check: 0})
-    }))
-  }, [myWord]);
+    }));
+    closeModal();
+  }, [secretWord]);
 
   useEffect(() => {
-    if (wrongAnswer < 6) {
-
-      if (myLetter && myWord.indexOf(myLetter) !== -1) {
+    // 💡 1) wrongAnswer should be less than 6 
+    // 💡 2) inputLetter should be valid charecter
+    // 💡 3) not previously checked
+    if (wrongAnswer < 6 
+      && inputLetter 
+      && !keyboard.filter(row => row.letter === inputLetter)[0].check)
+    {
+      // 💡 you found letter -> play sound, update keyboard and secretWordArr
+      if (secretWord.indexOf(inputLetter) !== -1) {
         const au = new Audio(correctSound);
         au.volume = volume;
         au.play();
-        setKeyboard(keyboard.map(row => {
-          if (myLetter === row.letter) {
+        setKeyboard(k => k.map(row => {
+          if (row.letter === inputLetter) {
             return ({...row, check: 1});
           } else return row;
         }));
-        setWordObj(wordObj.map(row => {
-          if (row.letter === myLetter) {
+        setSecretWordArr(s => s.map(row => {
+          if (row.letter === inputLetter) {
             return ({...row, found: true});
           } else {
             return row;
           }
         }));
       } 
-      if (myLetter && myWord.indexOf(myLetter) === -1) {
+      // 💡 you guess wrong -> play sound, update keyboard and wrongAnswer
+      if (secretWord.indexOf(inputLetter) === -1) {
         const au = new Audio(failureSound);
         au.volume = volume;
         au.play();
         setWrongAnswer(pre => pre + 1);
-        setKeyboard(keyboard.map(row => {
-          if (myLetter === row.letter) {
+        setKeyboard(k => k.map(row => {
+          if (inputLetter === row.letter) {
             return ({...row, check: 2});
           } else return row;
         }));
       }
     }
-  }, [myLetter]);
+  }, [inputLetter]);  // eslint-disable-line
 
   useEffect(() => {
-    if (wordObj.length && !wordObj.filter(row => !row.found).length) {
+    // 💡 find out when you win
+    // 💡 send endGame win to other components
+    // 💡 after delay play sound and open modal
+    if (secretWordArr.length && !secretWordArr.filter(row => !row.found).length) {
       setEndGame("win");
       const timer =  setTimeout(() => {
         const au = new Audio(winnerSound);
@@ -141,10 +153,13 @@ function App() {
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [wordObj]);
+  }, [secretWordArr]); // eslint-disable-line
 
   useEffect(() => {
-    if (wrongAnswer === 6) {
+    // 💡 find out when you lose
+    // 💡 send endGame lose to other components
+    // 💡 after delay play sound and open modal
+    if (wrongAnswer >= 6) {
       setEndGame('lose');
       const timer =  setTimeout(() => {
         const au = new Audio(loserSound);
@@ -154,13 +169,13 @@ function App() {
       }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [wrongAnswer, myWord])
+  }, [wrongAnswer]); // eslint-disable-line
 
-
+  // 💡 accept only 26 charecters as input.
   const detectKeyDown = (e) => {
     const regexLetter = /^[a-zA-Z]{1}$/;
     if (regexLetter.test(e.key)) {
-      setMyLetter(e.key.toLowerCase());
+      setInputLetter(e.key.toLowerCase());
     }
   }
 
@@ -169,22 +184,19 @@ function App() {
     setLoser(false);
   }
 
-  console.log(myWord);
-  console.log(wordObj);
-  console.log('❌', wrongAnswer);
-  // console.log('📱', keyboard);
-  console.log('📱',endGame);
+  console.log('🗝', secretWord);
+  // console.log('❌', wrongAnswer);
 
   return (
     <div className="app">
       <Modal
-          isOpen={winner || loser}
-          // onRequestClose={closeModal}
-          appElement={document.getElementById('root')}
-          className="a-modal"
-        >
-          {winner && <Winner onNewGame={onNewGame}/>}
-          {loser && <Loser onNewGame={onNewGame}/>}
+        isOpen={winner || loser}
+        // onRequestClose={closeModal}
+        appElement={document.getElementById('root')}
+        className="a-modal"
+      >
+        {winner && <Winner onNewGame={newGame}/>}
+        {loser && <Loser onNewGame={newGame}/>}
       </Modal>
       <div className='a-title'>
         <Title />
@@ -193,7 +205,7 @@ function App() {
         <Hangman wrongAnswer={wrongAnswer} endGame={endGame}/>
       </div>
       <div className='a-word'>
-        <Word myWord={myWord} myLetter={myLetter} wordObj={wordObj} setMyLetter={setMyLetter} keyboard={keyboard} endGame={endGame}/>
+        <Word secretWordArr={secretWordArr} setInputLetter={setInputLetter} keyboard={keyboard} endGame={endGame}/>
       </div>
       <div className='a-control'>
         <Control volume={volume} setVolume={setVolume} musicVolume={musicVolume} setMusicVolume={setMusicVolume}/>
