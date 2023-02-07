@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import Modal from 'react-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVolumeLow, faVolumeXmark, faMusic, faBorderNone } from '@fortawesome/free-solid-svg-icons';
+import { faVolumeLow, faVolumeXmark, faMusic, faBorderNone, faQuestion } from '@fortawesome/free-solid-svg-icons';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -56,6 +57,8 @@ const Control = ({volume, setVolume, musicVolume, setMusicVolume}) => {
 
   const { playing, setPlaying } = useAudioPlayer(musicVolume);
 
+  const [openHelp, setOpenHelp] = useState(false);
+
   const handleVolumeChange = (event, newValue) => {
     setVolume(newValue / 100);
   };
@@ -64,10 +67,25 @@ const Control = ({volume, setVolume, musicVolume, setMusicVolume}) => {
     setMusicVolume(newValue / 100);
   };
 
+  const closeModal = () => {
+    setOpenHelp(false);
+  }
+
 
   return (
     <div className="control">
-     <audio id="music">
+      <Modal
+          isOpen={openHelp}
+          onRequestClose={closeModal}
+          appElement={document.getElementById('root')}
+          className="a-modal"
+        >
+          <div className='help'>
+            <span>Try to get the secret word one letter at a time!</span>
+            <span>Keep in mind you will lose if you have more than 5 wrong guess.</span>
+          </div>
+      </Modal>
+      <audio id="music">
         <source src={music} />
       </audio>
 
@@ -114,6 +132,9 @@ const Control = ({volume, setVolume, musicVolume, setMusicVolume}) => {
           <PrettoSlider aria-label="Volume" value={volume * 100} onChange={handleVolumeChange} />
         </Stack> 
       </Box>
+      <div className='c-help'>
+        <button className='help-btn' onClick={() => {setOpenHelp(true)}}><FontAwesomeIcon icon={faQuestion} /></button>
+      </div>
     </div>
   )
 }

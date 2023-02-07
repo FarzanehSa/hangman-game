@@ -2,6 +2,18 @@
 
 .control {
   border: $test2;
+  height: 100%;
+  width: 80%;
+  margin: auto;
+  padding-top: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  .c-help {
+    width: 200px;
+  }
 
   .box {
     .btn-volume {
@@ -32,8 +44,29 @@
       }
     }
     
-    .mute {
-
-    }
   }
+
+  .help-btn {
+    @include g-button;
+
+    height: 2.5rem;
+    width: 2.5rem;
+
+    color: #fff;
+    background-color: goldenrod;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+}
+.help {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.5rem;
+}
+.help > * {
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
 }

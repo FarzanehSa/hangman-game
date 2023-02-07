@@ -1,23 +1,31 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Modal from 'react-modal';
 
 import Title from './components/Title';
 import Hangman from './components/Hangman';
 import Word from './components/Word';
 import Control from './components/Control';
+import Winner from './components/Winner';
+import Loser from './components/Loser';
 
 import failureSound from './assets/failureSound.wav';
 import correctSound from './assets/correctSound.wav';
+import winnerSound from './assets/winnerSound.wav';
+import loserSound from './assets/loserSound.wav';
 import './App.scss';
 
 function App() {
 
   const [myWord, setMyWord] = useState("");
-  const [wordObj, setWordObj] = useState([])
+  const [wordObj, setWordObj] = useState([]);
   const [myLetter, setMyLetter] = useState();
   const [wrongAnswer, setWrongAnswer] = useState(0);
   const [volume, setVolume] = useState(0.2);
   const [musicVolume, setMusicVolume] = useState(0.5);
+  const [winner, setWinner] = useState(false);
+  const [loser, setLoser] = useState(false);
+  const [endGame, setEndGame] = useState("no");
   const [keyboard, setKeyboard] = useState([
     {letter: "a", show: "A", check: 0},
     {letter: "b", show: "B", check: 0},
@@ -49,20 +57,29 @@ function App() {
 
   useEffect(() => {
 
-    // axios.get('https://api.datamuse.com/words?sp=a&max=1')
-    // axios.get('https://random-word-api.herokuapp.com/word?length=5')
-    axios.get('https://random-word-api.vercel.app/api?words=1')
-    .then(res => {
-      setMyWord(res.data[0]);
-    });
-
-    document.addEventListener("keydown", detectKeyDown, true);
-
+    newGame();
+    document.addEventListener("keydown", detectKeyDown, false);
     return () => {
       document.removeEventListener('keydown', detectKeyDown);
     };
 
   }, []);
+
+  const newGame = () => {
+    // axios.get('https://api.datamuse.com/words?sp=a&max=1');
+    // axios.get('https://random-word-api.herokuapp.com/word?length=5');
+    axios.get('https://random-word-api.vercel.app/api?words=1')
+    .then(res => {
+      setMyWord(res.data[0]);
+    });
+  }
+
+  const onNewGame = () => {
+    newGame();
+    closeModal();
+    setWrongAnswer(0);
+    setEndGame("no")
+  }
 
   useEffect(() => {
     let wArr = [];
@@ -80,41 +97,64 @@ function App() {
   }, [myWord]);
 
   useEffect(() => {
-    if (myLetter && myWord.indexOf(myLetter) !== -1) {
-      const au = new Audio(correctSound);
-      au.volume = volume;
-      au.play();
-      setKeyboard(keyboard.map(row => {
-        if (myLetter === row.letter) {
-          return ({...row, check: 1});
-        } else return row;
-      }));
-      setWordObj(wordObj.map(row => {
-        if (row.letter === myLetter) {
-          return ({...row, found: true});
-        } else {
-          return row;
-        }
-      }));
-    } 
-    if (myLetter && myWord.indexOf(myLetter) === -1) {
-      const au = new Audio(failureSound);
-      au.volume = volume;
-      au.play();
-      setWrongAnswer(pre => pre + 1);
-      setKeyboard(keyboard.map(row => {
-        if (myLetter === row.letter) {
-          return ({...row, check: 2});
-        } else return row;
-      }));
+    if (wrongAnswer < 6) {
+
+      if (myLetter && myWord.indexOf(myLetter) !== -1) {
+        const au = new Audio(correctSound);
+        au.volume = volume;
+        au.play();
+        setKeyboard(keyboard.map(row => {
+          if (myLetter === row.letter) {
+            return ({...row, check: 1});
+          } else return row;
+        }));
+        setWordObj(wordObj.map(row => {
+          if (row.letter === myLetter) {
+            return ({...row, found: true});
+          } else {
+            return row;
+          }
+        }));
+      } 
+      if (myLetter && myWord.indexOf(myLetter) === -1) {
+        const au = new Audio(failureSound);
+        au.volume = volume;
+        au.play();
+        setWrongAnswer(pre => pre + 1);
+        setKeyboard(keyboard.map(row => {
+          if (myLetter === row.letter) {
+            return ({...row, check: 2});
+          } else return row;
+        }));
+      }
     }
   }, [myLetter]);
 
   useEffect(() => {
-    if (!wordObj.filter(row => !row.found).length) {
-      console.log("Well Done");
+    if (wordObj.length && !wordObj.filter(row => !row.found).length) {
+      setEndGame("win");
+      const timer =  setTimeout(() => {
+        const au = new Audio(winnerSound);
+        au.volume = volume;
+        au.play();
+        setWinner(true);
+      }, 3000);
+      return () => clearTimeout(timer);
     }
   }, [wordObj]);
+
+  useEffect(() => {
+    if (wrongAnswer === 6) {
+      setEndGame('lose');
+      const timer =  setTimeout(() => {
+        const au = new Audio(loserSound);
+        au.volume = volume;
+        au.play();
+        setLoser(true);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [wrongAnswer, myWord])
 
 
   const detectKeyDown = (e) => {
@@ -124,29 +164,36 @@ function App() {
     }
   }
 
-  console.log(myWord, myLetter);
+  const closeModal = () => {
+    setWinner(false);
+    setLoser(false);
+  }
+
+  console.log(myWord);
   console.log(wordObj);
   console.log('❌', wrongAnswer);
-  console.log('📱', keyboard);
+  // console.log('📱', keyboard);
+  console.log('📱',endGame);
 
   return (
     <div className="app">
-      {/* <Modal
-          isOpen={successfullBook}
-          onRequestClose={closeModal}
+      <Modal
+          isOpen={winner || loser}
+          // onRequestClose={closeModal}
           appElement={document.getElementById('root')}
-          className="modal"
+          className="a-modal"
         >
-          {successfullBook && <SuccessfullBook date={successBookInfo.date} info={successBookInfo.savedData} onClose={closeModal} />}
-      </Modal> */}
+          {winner && <Winner onNewGame={onNewGame}/>}
+          {loser && <Loser onNewGame={onNewGame}/>}
+      </Modal>
       <div className='a-title'>
         <Title />
       </div>
       <div className='a-hangman'>
-        <Hangman wrongAnswer={wrongAnswer}/>
+        <Hangman wrongAnswer={wrongAnswer} endGame={endGame}/>
       </div>
       <div className='a-word'>
-        <Word myWord={myWord} myLetter={myLetter} wordObj={wordObj} setMyLetter={setMyLetter} keyboard={keyboard}/>
+        <Word myWord={myWord} myLetter={myLetter} wordObj={wordObj} setMyLetter={setMyLetter} keyboard={keyboard} endGame={endGame}/>
       </div>
       <div className='a-control'>
         <Control volume={volume} setVolume={setVolume} musicVolume={musicVolume} setMusicVolume={setMusicVolume}/>

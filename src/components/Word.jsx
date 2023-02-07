@@ -18,12 +18,24 @@ const draw = {
   }
 };
 
-const Word = ({myWord, myLetter, wordObj, setMyLetter, keyboard}) => {
+const Word = ({myWord, myLetter, wordObj, setMyLetter, keyboard, endGame}) => {
+
+  const [classL, setClassL] = useState();
+  
+  useEffect(() => {
+    if (endGame === "lose") {
+      console.log('here');
+      setClassL("letter-end");
+    } else if (endGame === "no") {
+      setClassL("letter-h");
+    }
+    console.log(classL);
+  }, [endGame]);
 
   const myWordDiv = wordObj.map((row, index) => {
     return (
       <div className='letter' key={index}>
-        <span className={row.found ? 'letter-v' : 'letter-h'}>
+        <span className={row.found ? 'letter-v' : `${classL}`}>
           {row.letter}
         </span>
       </div>

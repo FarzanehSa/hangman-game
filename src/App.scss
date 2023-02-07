@@ -1,7 +1,7 @@
 @import "./styles/variables.scss";
 
 .app {
-  border: $test;
+  // border: $test;
   width: 100%;
   min-height: 100vh;
   padding: 2rem;
@@ -10,6 +10,7 @@
   gap: 10px;
   grid-auto-rows: 30% 70%;
   background-color: Indigo;
+  position: relative;
 
   .a-title {
     grid-column: 1 / 4;
@@ -39,4 +40,18 @@
     height: 100%;
     width: 100%;
   }
+
+}
+.a-modal {
+  // border: 0.5px solid LightSlateGray;
+  background-color: indigo;
+  border-radius: 20px 60px 20px 60px;
+  padding: 2em;
+  min-width: 30%;
+  z-index: 2000;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

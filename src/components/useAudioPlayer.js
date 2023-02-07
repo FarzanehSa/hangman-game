@@ -26,6 +26,7 @@ function useAudioPlayer(vol) {
     // React state listeners: update DOM on React state changes
     playing ? audio.play() : audio.pause();
     audio.volume = vol;
+    audio.loop = true;
     
 
     // if (clickedTime && clickedTime !== curTime) {

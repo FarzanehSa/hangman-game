@@ -4,7 +4,7 @@ const Title = () => {
   return (
     <div className="title">
       <span className='t-title'>Hangman</span>
-      <span className='t-help'>Type or Select a letter</span>
+      <span className='t-help'>Guess The Secret Word</span>
     </div>
   )
 }

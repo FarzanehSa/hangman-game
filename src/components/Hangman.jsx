@@ -17,7 +17,7 @@ const draw = {
   }
 };
 
-const Hangman = ({wrongAnswer}) => {
+const Hangman = ({wrongAnswer, endGame}) => {
 
   const [man, setMan] = useState({
     body: "hidden",
@@ -28,56 +28,78 @@ const Hangman = ({wrongAnswer}) => {
     rLeg: "hidden",
   });
 
+  useEffect(() => {
+    if (endGame === "win") {
+      setMan({...man, 
+        body: "hidden",
+        head: "hidden",
+        lHand: "hidden",
+        rHand: "hidden",
+        lLeg: "hidden",
+        rLeg: "hidden",
+      });
+    } 
+    // else if (endGame === "no") {
+    //   setClassL("letter-h");
+    // }
+  }, [endGame]);
 
   useEffect(() => {
-
-    if (wrongAnswer === 1) {
-      setMan({...man, head: "visible"});
+    switch(wrongAnswer) {
+      case 1:
+        setMan({...man, head: "visible"});
+        break;
+      case 2:
+        setMan({...man, 
+          head: "visible", 
+          body: "visible"
+        });
+        break;
+      case 3:
+        setMan({...man, 
+          head: "visible", 
+          body: "visible",
+          lHand: "visible",
+        });
+        break;
+      case 4:
+        setMan({...man, 
+          head: "visible", 
+          body: "visible",
+          lHand: "visible",
+          rHand: "visible",
+        });
+        break;
+      case 5:
+        setMan({...man, 
+          head: "visible", 
+          body: "visible",
+          lHand: "visible",
+          rHand: "visible",
+          lLeg: "visible",
+        });
+        break;
+      case 6:
+        setMan({...man, 
+          head: "visible", 
+          body: "visible",
+          lHand: "visible",
+          rHand: "visible",
+          lLeg: "visible",
+          rLeg: "visible",
+        });
+        break;
+      default:
+        setMan({...man, 
+          body: "hidden",
+          head: "hidden",
+          lHand: "hidden",
+          rHand: "hidden",
+          lLeg: "hidden",
+          rLeg: "hidden",
+        });
     }
-    if (wrongAnswer === 2) {
-      setMan({...man, 
-        head: "visible", 
-        body: "visible"
-      });
-    }
-    if (wrongAnswer === 3) {
-      setMan({...man, 
-        head: "visible", 
-        body: "visible",
-        lHand: "visible",
-      });
-    }
-    if (wrongAnswer === 4) {
-      setMan({...man, 
-        head: "visible", 
-        body: "visible",
-        lHand: "visible",
-        rHand: "visible",
-      });
-    }
-    if (wrongAnswer === 5) {
-      setMan({...man, 
-        head: "visible", 
-        body: "visible",
-        lHand: "visible",
-        rHand: "visible",
-        lLeg: "visible",
-      });
-    }
-    if (wrongAnswer === 6) {
-      setMan({...man, 
-        head: "visible", 
-        body: "visible",
-        lHand: "visible",
-        rHand: "visible",
-        lLeg: "visible",
-        rLeg: "visible",
-      });
-    }
-  }, [wrongAnswer])
-
-  
-  console.log(wrongAnswer);
+  }, [wrongAnswer]);
 
   return (
     <div className="hangman">
@@ -128,8 +150,6 @@ const Hangman = ({wrongAnswer}) => {
       </motion.svg>
 
       <motion.svg
-        // width="200"
-        // height="200"
         viewBox="0 0 100 100"
         initial="hidden"
         className="fix-hang"
@@ -191,6 +211,67 @@ const Hangman = ({wrongAnswer}) => {
           stroke="#ff0055"
           variants={draw}
           animate={man.rLeg}
+          custom={0}
+        />
+      </motion.svg>
+
+      <motion.svg
+        viewBox="0 0 100 100"
+        initial="hidden"
+        className="fix-hang"
+        animate={endGame === "win" ? "visible" : "hidden"}
+        >
+        <motion.circle
+          cx="60"
+          cy="57"
+          r="7"
+          stroke="#ff0055"
+          variants={draw}
+          custom={0}
+        />
+        <motion.line
+          x1="60"
+          y1="65"
+          x2="60"
+          y2="85"
+          stroke="#ff0055"
+          variants={draw}
+          custom={0}
+        />
+        <motion.line
+          x1="60"
+          y1="70"
+          x2="54"
+          y2="80"
+          stroke="#ff0055"
+          variants={draw}
+          custom={0}
+        />
+        <motion.line
+          x1="60"
+          y1="70"
+          x2="66"
+          y2="80"
+          stroke="#ff0055"
+          variants={draw}
+          custom={0}
+        />
+        <motion.line
+          x1="60"
+          y1="85"
+          x2="55"
+          y2="100"
+          stroke="#ff0055"
+          variants={draw}
+          custom={0}
+        />
+        <motion.line
+          x1="60"
+          y1="85"
+          x2="65"
+          y2="100"
+          stroke="#ff0055"
+          variants={draw}
           custom={0}
         />
       </motion.svg>
