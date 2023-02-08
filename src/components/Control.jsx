@@ -60,8 +60,8 @@ const Control = ({volume, setVolume, musicVolume, setMusicVolume}) => {
         <source src={music} />
       </audio>
 
-      <Box className="box">
-        <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+      <div className="box">
+        <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center" className='bar'>
           {playing ? 
           <button 
             className="btn-volume"
@@ -80,10 +80,10 @@ const Control = ({volume, setVolume, musicVolume, setMusicVolume}) => {
           }
           <PrettoSlider aria-label="Volume" value={musicVolume * 100} onChange={handleMusicChange} />
         </Stack> 
-      </Box>
+      </div>
 
-      <Box className="box">
-        <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+      <div className="box">
+        <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center" className='bar'>
           {volume ? 
           <button 
             className="btn-volume"
@@ -102,8 +102,8 @@ const Control = ({volume, setVolume, musicVolume, setMusicVolume}) => {
           }
           <PrettoSlider aria-label="Volume" value={volume * 100} onChange={handleVolumeChange} />
         </Stack> 
-      </Box>
-      <div className='c-help'>
+      </div>
+      <div className='box'>
         <button className='help-btn' onClick={() => {setOpenHelp(true)}}><FontAwesomeIcon icon={faQuestion} /></button>
       </div>
     </div>

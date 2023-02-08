@@ -2,12 +2,12 @@
 
 .title {
   border: $test2;
+  height: 30vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  width: 100%;
 
   .t-title {
     font-family: $title-font-family;
@@ -17,5 +17,19 @@
 
   .t-help {
     color: white;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .title {
+    height: 20vh;
+    min-height: 140px;
+    .t-title {
+      font-size: 3rem;
+    }
+  
+    .t-help {
+      font-size: 1.5rem;
+    }
   }
 }

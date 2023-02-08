@@ -1,8 +1,8 @@
 @import '../styles/_variables.scss';
 
 .control {
-  // border: $test2;
-  height: 100%;
+  border: $test2;
+  height: 70vh;
   width: 80%;
   margin: auto;
   padding-top: 20%;
@@ -11,12 +11,19 @@
   justify-content: flex-start;
   align-items: center;
 
-  .c-help {
-    width: 200px;
-  }
-
   .box {
     width: 200px;
+    height: 50px;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .bar {
+      width: 200px;
+    }
+
     .btn-volume {
       @include g-button;
 
@@ -70,4 +77,27 @@
 .help > * {
   margin-top: 0.3em;
   margin-bottom: 0.3em;
+}
+
+@media screen and (max-width: 800px) {
+  .control {
+    height: 30vh;
+    min-height: 200px;
+    margin: auto;
+    padding-top: 10%;
+  
+    .box {
+      width: 200px;
+      height: 50px;
+      margin-top: 0.2rem;
+      margin-bottom: 0.2rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+  
+      .bar {
+        width: 200px;
+      }
+    }
+  }
 }

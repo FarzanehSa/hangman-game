@@ -2,7 +2,7 @@
 
 .hangman {
   border: $test2;
-  height: 100%;
+  height: 70vh;
   width: 100%;
   min-width: 260px;
   display: flex;
@@ -34,5 +34,19 @@
 .saved-man {
   stroke: green;
   stroke-width: 3px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .hangman {
+    height: 40vh;
+    min-height: 400px; 
+    min-width: 260px;
+  
+    .fix-hang {
+      position: absolute;
+      width: 90%;
+      height: 90%;
+    }
   }
 }
