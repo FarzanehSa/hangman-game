@@ -18,7 +18,7 @@ const Word = ({secretWordArr, setInputLetter, keyboard, endGame}) => {
     return (
       <div className='letter' key={index}>
         <span className={row.found ? 'letter-v' : `${classL}`}>
-          {row.letter}
+          {row.letter.toUpperCase()}
         </span>
       </div>
     )
@@ -26,8 +26,7 @@ const Word = ({secretWordArr, setInputLetter, keyboard, endGame}) => {
 
   const charButtonArr = keyboard.map((row, index) => {
     let classN = 'char-btn';
-    if (row.check === 1) classN += ' char-btn-correct';
-    if (row.check === 2) classN += ' char-btn-wrong';
+    if (row.check) {classN += ' char-btn-inactive';}
 
     return (
       <button 

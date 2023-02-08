@@ -5,9 +5,12 @@
 
 // font
 $main-font-family: 'Gumela';
+$title-font-family: 'Big Ten', sans-serif;
 // $title-font-family: 'Kitschy Retro', sans-serif;
 // $title-font-family: 'Shizuru', sans-serif;
-$title-font-family: 'Big Ten', sans-serif;
+
+// font-color
+$main-font-color: #fff;
 
 // border
 $test       : 2px solid black;
@@ -15,10 +18,15 @@ $test1      : 2px solid red;
 $test2      : 2px solid blue;
 $test3      : 2px solid green;
 
-// 
-@mixin g-button {
+// background
+$app-background-color : indigo;
 
-  
+// button
+$main-btn-color: #DAA520;
+$inactive-btn-color: #C0C0C0;
+$diag-line-color: #B22222;
+
+@mixin g-button {
   margin: 0.2rem;
   border-radius: 10px;
 

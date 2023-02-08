@@ -4,23 +4,35 @@
   border: $test2;
   height: 100%;
   width: 100%;
+  min-width: 260px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   position: relative;
 
   .fix-hang {
-    position: absolute;
-    width: 100%;
-    height: 100%;
     border: $test;
+    position: absolute;
+    width: 80%;
+    height: 80%;
   }
 
   circle,
-  rect,
   line {
   stroke-width: 1px;
-  stroke-linecap: round;
+  stroke-linecap:round;
   fill: transparent;
+}
+.hanger {
+  stroke: $main-btn-color;
+  stroke-width: 4px;
+  }
+.dead-man {
+  stroke: red;
+  stroke-width: 3px;
+  }
+.saved-man {
+  stroke: green;
+  stroke-width: 3px;
   }
 }

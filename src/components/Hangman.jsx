@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 const draw = {
   hidden: { pathLength: 0, opacity: 0 },
   visible: (i) => {
-    const delay = 1 + i * 0.5;
+    const delay = 0.5 + i * 0.5;
+    // const delay = 1 + i * 0.5;
     return {
       pathLength: 1,
       opacity: 1,
@@ -101,175 +102,171 @@ const Hangman = ({wrongAnswer, endGame}) => {
   return (
     <div className="hangman">
       <motion.svg
-        // width="300"
-        // height="300"
-        viewBox="0 0 100 100"
         initial="hidden"
         animate="visible"
         className="fix-hang"
       >
         <motion.line
           x1="0"
-          y1="100"
-          x2="30"
-          y2="100"
-          stroke="#00cc88"
+          y1="300"
+          x2="100"
+          y2="300"
           variants={draw}
           custom={0}
+          className="hanger"
         />
         <motion.line
-          x1="15"
-          y1="100"
-          x2="15"
-          y2="20"
-          stroke="#00cc88"
+          x1="50"
+          y1="60"
+          x2="50"
+          y2="300"
           variants={draw}
           custom={0.2}
+          className="hanger"
         />
         <motion.line
-          x1="15"
-          y1="20"
-          x2="45"
-          y2="20"
-          stroke="#00cc88"
+          x1="50"
+          y1="60"
+          x2="130"
+          y2="60"
           variants={draw}
           custom={0.4}
+          className="hanger"
         />
         <motion.line
-          x1="45"
-          y1="20"
-          x2="45"
-          y2="40"
-          stroke="#00cc88"
+          x1="130"
+          y1="60"
+          x2="130"
+          y2="100"
           variants={draw}
           custom={0.6}
+          className="hanger"
         />
       </motion.svg>
 
       <motion.svg
-        viewBox="0 0 100 100"
         initial="hidden"
         className="fix-hang"
         >
         <motion.circle
-          cx="45"
-          cy="47"
-          r="7"
-          stroke="#ff0055"
+          cx="130"
+          cy="121"
+          r="20"
           variants={draw}
           animate={man.head}
           custom={0}
+          className="dead-man"
         />
         <motion.line
-          x1="45"
-          y1="54"
-          x2="45"
-          y2="75"
-          stroke="#ff0055"
+          x1="130"
+          y1="141"
+          x2="130"
+          y2="220"
           variants={draw}
           animate={man.body}
           custom={0}
+          className="dead-man"
         />
         <motion.line
-          x1="45"
-          y1="65"
-          x2="35"
-          y2="55"
-          stroke="#ff0055"
+          x1="130"
+          y1="180"
+          x2="100"
+          y2="150"
           variants={draw}
           animate={man.lHand}
           custom={0}
+          className="dead-man"
         />
         <motion.line
-          x1="45"
-          y1="65"
-          x2="55"
-          y2="55"
-          stroke="#ff0055"
+          x1="130"
+          y1="180"
+          x2="160"
+          y2="150"
           variants={draw}
           animate={man.rHand}
           custom={0}
+          className="dead-man"
         />
         <motion.line
-          x1="45"
-          y1="75"
-          x2="35"
-          y2="85"
-          stroke="#ff0055"
+          x1="130"
+          y1="220"
+          x2="100"
+          y2="250"
           variants={draw}
           animate={man.lLeg}
           custom={0}
+          className="dead-man"
         />
         <motion.line
-          x1="45"
-          y1="75"
-          x2="55"
-          y2="85"
-          stroke="#ff0055"
+          x1="130"
+          y1="220"
+          x2="160"
+          y2="250"
           variants={draw}
           animate={man.rLeg}
           custom={0}
+          className="dead-man"
         />
       </motion.svg>
 
       <motion.svg
-        viewBox="0 0 100 100"
         initial="hidden"
         className="fix-hang"
-        animate={endGame === "win" ? "visible" : "hidden"}
+        // animate={endGame === "win" ? "visible" : "hidden"}
+        animate="visible"
         >
         <motion.circle
-          cx="60"
-          cy="57"
-          r="7"
-          stroke="#ff0055"
+          cx="180"
+          cy="170"
+          r="20"
           variants={draw}
           custom={0}
+          className="saved-man"
         />
         <motion.line
-          x1="60"
-          y1="65"
-          x2="60"
-          y2="85"
-          stroke="#ff0055"
+          x1="180"
+          y1="190"
+          x2="180"
+          y2="260"
           variants={draw}
           custom={0}
+          className="saved-man"
         />
         <motion.line
-          x1="60"
-          y1="70"
-          x2="54"
-          y2="80"
-          stroke="#ff0055"
+          x1="180"
+          y1="210"
+          x2="200"
+          y2="245"
           variants={draw}
           custom={0}
+          className="saved-man"
         />
         <motion.line
-          x1="60"
-          y1="70"
-          x2="66"
-          y2="80"
-          stroke="#ff0055"
+          x1="180"
+          y1="210"
+          x2="160"
+          y2="245"
           variants={draw}
           custom={0}
+          className="saved-man"
         />
         <motion.line
-          x1="60"
-          y1="85"
-          x2="55"
-          y2="100"
-          stroke="#ff0055"
+          x1="180"
+          y1="260"
+          x2="160"
+          y2="300"
           variants={draw}
           custom={0}
+          className="saved-man"
         />
         <motion.line
-          x1="60"
-          y1="85"
-          x2="65"
-          y2="100"
-          stroke="#ff0055"
+          x1="180"
+          y1="260"
+          x2="200"
+          y2="300"
           variants={draw}
           custom={0}
+          className="saved-man"
         />
       </motion.svg>
     </div>

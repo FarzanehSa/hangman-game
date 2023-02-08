@@ -2,14 +2,15 @@
 
 .app {
   // border: $test;
-  width: 100%;
   min-height: 100vh;
-  padding: 2rem;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   grid-auto-rows: 30% 70%;
-  background-color: Indigo;
+  background-color: $app-background-color;
   position: relative;
 
   .a-title {
@@ -23,8 +24,8 @@
     grid-column: 1;
     grid-row: 2;
     border: $test1;
-    height: 100%;
-    width: 100%;
+    // height: 100%;
+    // width: 100%;
   }
   .a-word {
     grid-column: 2;
@@ -40,11 +41,11 @@
     height: 100%;
     width: 100%;
   }
-
 }
+
 .a-modal {
   // border: 0.5px solid LightSlateGray;
-  background-color: indigo;
+  background-color: $app-background-color;
   border-radius: 20px 60px 20px 60px;
   padding: 2em;
   min-width: 30%;
@@ -54,4 +55,47 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 800px) {
+  .app {
+    width: 100%;
+    min-height: 100vh;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    grid-auto-rows: 20% 60% 20%;
+    background-color: $app-background-color;
+    position: relative;
+  
+    .a-title {
+      grid-column: 1 / 4;
+      grid-row: 1;
+      border: $test3;
+      height: 100%;
+      width: 100%;
+    }
+    .a-hangman {
+      border: $test1;
+      grid-column: 1;
+      grid-row: 2;
+      // height: 100%;
+      // width: 100%;
+    }
+    .a-word {
+      grid-column: 2;
+      grid-row: 2 / 4;
+      border: $test1;
+      height: 100%;
+      width: 100%;
+    }
+    .a-control {
+      grid-column: 1;
+      grid-row: 3;
+      border: $test1;
+      height: 100%;
+      width: 100%;
+    }
+  }
 }

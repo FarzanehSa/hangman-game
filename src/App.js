@@ -96,6 +96,7 @@ function App() {
       return ({...row, check: 0})
     }));
     closeModal();
+    console.log('🗝', secretWord);
   }, [secretWord]);
 
   useEffect(() => {
@@ -159,6 +160,7 @@ function App() {
     // 💡 find out when you lose
     // 💡 send endGame lose to other components
     // 💡 after delay play sound and open modal
+    // console.log('❌', wrongAnswer);
     if (wrongAnswer >= 6) {
       setEndGame('lose');
       const timer =  setTimeout(() => {
@@ -183,9 +185,6 @@ function App() {
     setWinner(false);
     setLoser(false);
   }
-
-  console.log('🗝', secretWord);
-  // console.log('❌', wrongAnswer);
 
   return (
     <div className="app">
