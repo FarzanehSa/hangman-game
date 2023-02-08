@@ -26,7 +26,7 @@ const PrettoSlider = styled(Slider)({
   },
 });
 
-const Control = ({volume, setVolume, musicVolume, setMusicVolume}) => {
+const Control = ({volume, setVolume, musicVolume, setMusicVolume, setMute, mute}) => {
 
   const { playing, setPlaying } = useAudioPlayer(musicVolume);
   const [openHelp, setOpenHelp] = useState(false);
@@ -85,16 +85,16 @@ const Control = ({volume, setVolume, musicVolume, setMusicVolume}) => {
 
       <div className="box">
         <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center" className='bar'>
-          {volume ? 
+          {!mute ? 
           <button 
             className="btn-volume"
-            onClick={() => setVolume(0)}
+            onClick={() => setMute(true)}
           >
             <FontAwesomeIcon icon={faVolumeLow}/>
           </button>
           :
           <button
-          onClick={() => setVolume(0.2)} 
+          onClick={() => setMute(false)} 
           className="btn-volume"
           >
             <FontAwesomeIcon icon={faVolumeLow}/>

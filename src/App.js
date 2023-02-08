@@ -56,6 +56,7 @@ function App() {
   const [winner, setWinner] = useState(false);
   const [loser, setLoser] = useState(false);
   const [volume, setVolume] = useState(0.2);
+  const [mute, setMute] = useState(false);
   const [musicVolume, setMusicVolume] = useState(0.5);
 
   const newGame = () => {
@@ -110,8 +111,10 @@ function App() {
       // 💡 you found letter -> play sound, update keyboard and secretWordArr
       if (secretWord.indexOf(inputLetter) !== -1) {
         const au = new Audio(correctSound);
-        au.volume = volume;
-        au.play();
+        if (!mute) {
+          au.volume = volume;
+          au.play();
+        }
         setKeyboard(k => k.map(row => {
           if (row.letter === inputLetter) {
             return ({...row, check: 1});
@@ -128,8 +131,10 @@ function App() {
       // 💡 you guess wrong -> play sound, update keyboard and wrongAnswer
       if (secretWord.indexOf(inputLetter) === -1) {
         const au = new Audio(failureSound);
-        au.volume = volume;
-        au.play();
+        if (!mute) {
+          au.volume = volume;
+          au.play();
+        }
         setWrongAnswer(pre => pre + 1);
         setKeyboard(k => k.map(row => {
           if (inputLetter === row.letter) {
@@ -148,8 +153,10 @@ function App() {
       setEndGame("win");
       const timer =  setTimeout(() => {
         const au = new Audio(winnerSound);
-        au.volume = volume;
-        au.play();
+        if (!mute) {
+          au.volume = volume;
+          au.play();
+        }
         setWinner(true);
       }, 3000);
       return () => clearTimeout(timer);
@@ -165,8 +172,10 @@ function App() {
       setEndGame('lose');
       const timer =  setTimeout(() => {
         const au = new Audio(loserSound);
-        au.volume = volume;
-        au.play();
+        if (!mute) {
+          au.volume = volume;
+          au.play();
+        }
         setLoser(true);
       }, 1000);
       return () => clearTimeout(timer);
@@ -207,7 +216,7 @@ function App() {
         <Word secretWordArr={secretWordArr} setInputLetter={setInputLetter} keyboard={keyboard} endGame={endGame}/>
       </div>
       <div className='a-control'>
-        <Control volume={volume} setVolume={setVolume} musicVolume={musicVolume} setMusicVolume={setMusicVolume}/>
+        <Control volume={volume} setVolume={setVolume} musicVolume={musicVolume} setMusicVolume={setMusicVolume} setMute={setMute} mute={mute}/>
       </div>
     </div>
   );
