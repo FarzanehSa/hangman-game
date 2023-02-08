@@ -8,7 +8,8 @@ import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import './Control.scss';
 
-import music from '../assets/music.wav';
+import music1 from '../assets/music1.mp3';
+import music2 from '../assets/music2.ogg';
 import useAudioPlayer from './useAudioPlayer';
 
 const PrettoSlider = styled(Slider)({
@@ -56,7 +57,8 @@ const Control = ({volume, setVolume, musicVolume, setMusicVolume}) => {
         </div>
       </Modal>
       <audio id="music">
-        <source src={music} />
+        <source src={music1} type="audio/mpeg"/>
+        <source src={music2} type="audio/ogg"/>
       </audio>
 
       <div className="box">
