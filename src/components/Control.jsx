@@ -3,7 +3,6 @@ import Modal from 'react-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVolumeLow, faMusic, faQuestion } from '@fortawesome/free-solid-svg-icons';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
