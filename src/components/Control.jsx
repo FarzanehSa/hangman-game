@@ -62,45 +62,33 @@ const Control = ({volume, setVolume, musicVolume, setMusicVolume, setMute, mute}
       </audio>
 
       <div className="box">
+        {playing ? 
+        <button className="btn-volume" onClick={() => setPlaying(false)}>
+          <FontAwesomeIcon icon={faMusic} />
+        </button>
+        :
+        <button className="btn-volume" onClick={() => setPlaying(true)}>
+          <FontAwesomeIcon icon={faMusic} />
+          <div className="diag-line-show"></div>
+        </button>
+        }
         <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center" className='bar'>
-          {playing ? 
-          <button 
-            className="btn-volume"
-            onClick={() => setPlaying(false)}
-          >
-            <FontAwesomeIcon icon={faMusic} />
-          </button>
-          :
-          <button
-            onClick={() => setPlaying(true)}
-            className="btn-volume"
-          >
-            <FontAwesomeIcon icon={faMusic} />
-            <div className="diag-line-show"></div>
-          </button>
-          }
           <PrettoSlider aria-label="Volume" value={musicVolume * 100} onChange={handleMusicChange} />
         </Stack> 
       </div>
 
       <div className="box">
+        {!mute ? 
+        <button className="btn-volume" onClick={() => setMute(true)}>
+          <FontAwesomeIcon icon={faVolumeLow}/>
+        </button>
+        :
+        <button className="btn-volume" onClick={() => setMute(false)}>
+          <FontAwesomeIcon icon={faVolumeLow}/>
+          <div className="diag-line-show"></div>
+        </button>
+        }
         <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center" className='bar'>
-          {!mute ? 
-          <button 
-            className="btn-volume"
-            onClick={() => setMute(true)}
-          >
-            <FontAwesomeIcon icon={faVolumeLow}/>
-          </button>
-          :
-          <button
-          onClick={() => setMute(false)} 
-          className="btn-volume"
-          >
-            <FontAwesomeIcon icon={faVolumeLow}/>
-            <div className="diag-line-show"></div>
-          </button>
-          }
           <PrettoSlider aria-label="Volume" value={volume * 100} onChange={handleVolumeChange} />
         </Stack> 
       </div>

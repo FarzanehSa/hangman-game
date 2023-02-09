@@ -2,7 +2,7 @@
 
 .word {
   border: $test2;
-  height: 70vh;
+  min-height: 70vh;
   width: 100%;
   min-width: 236px;
   display: flex;
@@ -125,5 +125,11 @@
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .word {
+    min-height: 80vh;
   }
 }

@@ -2,9 +2,8 @@
 
 .hangman {
   border: $test2;
-  height: 70vh;
+  min-height: 70vh;
   width: 100%;
-  min-width: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,7 +13,8 @@
     border: $test;
     position: absolute;
     width: 80%;
-    height: 80%;
+    height: 65%;
+    min-height: 250px;
   }
 
   circle,
@@ -39,9 +39,9 @@
 
 @media screen and (max-width: 800px) {
   .hangman {
-    height: 40vh;
+    height: auto;
     min-height: 400px; 
-    min-width: 260px;
+    min-width: 250px;
   
     .fix-hang {
       position: absolute;
