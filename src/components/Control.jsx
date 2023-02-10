@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVolumeLow, faMusic, faQuestion } from '@fortawesome/free-solid-svg-icons';
@@ -6,6 +6,7 @@ import { faVolumeLow, faMusic, faQuestion } from '@fortawesome/free-solid-svg-ic
 import Stack from '@mui/material/Stack';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
+import GeneralContext from "../contexts/GeneralContext";
 import './Control.scss';
 
 import music1 from '../assets/music1.mp3';
@@ -26,8 +27,9 @@ const PrettoSlider = styled(Slider)({
   },
 });
 
-const Control = ({volume, setVolume, musicVolume, setMusicVolume, setMute, mute}) => {
+const Control = () => {
 
+  const {volume, setVolume, musicVolume, setMusicVolume, setMute, mute} = useContext(GeneralContext);
   const { playing, setPlaying } = useAudioPlayer(musicVolume);
   const [openHelp, setOpenHelp] = useState(false);
 
@@ -72,7 +74,7 @@ const Control = ({volume, setVolume, musicVolume, setMusicVolume, setMute, mute}
           <div className="diag-line-show"></div>
         </button>
         }
-        <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center" className='bar'>
+        <Stack spacing={2} direction="row" sx={{ mb: 0 }} alignItems="center" className='bar'>
           <PrettoSlider aria-label="Volume" value={musicVolume * 100} onChange={handleMusicChange} />
         </Stack> 
       </div>
@@ -88,7 +90,7 @@ const Control = ({volume, setVolume, musicVolume, setMusicVolume, setMute, mute}
           <div className="diag-line-show"></div>
         </button>
         }
-        <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center" className='bar'>
+        <Stack spacing={2} direction="row" sx={{ mb: 0 }} alignItems="center" className='bar'>
           <PrettoSlider aria-label="Volume" value={volume * 100} onChange={handleVolumeChange} />
         </Stack> 
       </div>

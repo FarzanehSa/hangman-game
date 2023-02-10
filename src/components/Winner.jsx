@@ -1,4 +1,4 @@
-import './Winner.scss';
+import './WinLose.scss';
 
 const Winner = ({onNewGame}) => {
 
@@ -6,7 +6,7 @@ const Winner = ({onNewGame}) => {
   const randomNum = Math.floor(Math.random() * 6);
   
   return (
-    <div className="winner">
+    <div className="win-lose">
       <span>{msgs[randomNum]}</span>
       <button className='modal-btn' onClick={onNewGame}>Play Again</button>
     </div>

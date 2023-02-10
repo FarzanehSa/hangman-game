@@ -1,9 +1,10 @@
 @import '../styles/_variables.scss';
 
 .title {
-  border: $test2;
-  height: 30vh;
+  min-height: 15vh;
   width: 100%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,8 +23,9 @@
 
 @media screen and (max-width: 800px) {
   .title {
-    height: 20vh;
     min-height: 140px;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
     .t-title {
       font-size: 3rem;
     }

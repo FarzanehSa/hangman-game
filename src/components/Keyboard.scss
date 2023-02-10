@@ -1,0 +1,103 @@
+@import '../styles/_variables.scss';
+
+.keyboard {
+  min-height: 50vh;
+  // width: 100%;
+  min-width: 236px;
+  padding-top: 40px;
+  flex: 1.5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  
+  .char-btns {
+    max-width: 283px;
+    min-width: 283px;
+    display: inline-flex;
+    // min-width: 236px;
+    // // width: min-content;
+    justify-content:flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .char-btn {
+      @include g-button;
+
+      height: 2.5rem;
+      width: 2.5rem;
+      position: relative;
+      color: $main-font-color;
+      background-color: $main-btn-color;
+      font-weight: bold;
+      font-size: 1.3rem;
+
+      .diag-line-show {
+        display: inline-block;
+        position: absolute;
+        top: 1rem;
+        left: 0rem;
+        height: 0rem;
+        width: 2.4rem;
+        border-bottom: 3px solid $diag-line-color;
+
+        transform: rotate(45deg);
+        transition: all 5s ease-in-out;
+        animation: animationDiagLine 2s 1;
+        animation-fill-mode:forwards;
+      }
+
+      .diag-line-hidden {
+        display: none;
+      }
+
+      @keyframes animationDiagLine {
+        0% {opacity: 0; 
+          filter: blur(10px);
+          -webkit-filter: blur(10px);
+          -moz-filter: blur(10px);
+          -ms-filter: blur(10px);
+          }
+        100% {opacity: 1;
+          filter: blur(0px);
+          -webkit-filter: blur(0px);
+          -moz-filter: blur(0px);
+          -ms-filter: blur(0px);
+        }
+      }
+    }
+
+    .char-btn-inactive {
+      background-color: $inactive-btn-color;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .keyboard {
+    min-height: 250px;
+    min-width: 200px;
+    padding-top: 0px;
+    flex: 1.5;
+
+    .char-btns {
+      max-width: 200px;
+      min-width: 200px;
+      display: inline-flex;
+      justify-content:flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+  
+      .char-btn {
+        height: 2rem;
+        width: 2rem;
+        font-size: 1rem;
+  
+        .diag-line-show {
+          top: 1rem;
+          width: 2rem;
+          border-bottom: 2px solid $diag-line-color;
+        }
+      }
+    }
+  }
+}

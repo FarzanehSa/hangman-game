@@ -1,73 +1,13 @@
 @import '../styles/_variables.scss';
 
-.word {
-  border: $test2;
-  min-height: 70vh;
+.input-area {
+  min-height: 20vh;
   width: 100%;
   min-width: 236px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
   
-  .char-btns {
-    max-width: 425px;
-    display: flex;
-    justify-content:flex-start;
-    align-items: center;
-    flex-wrap: wrap;
-
-    .char-btn {
-      @include g-button;
-
-      height: 2.5rem;
-      width: 2.5rem;
-      position: relative;
-      color: $main-font-color;
-      background-color: $main-btn-color;
-      font-weight: bold;
-      font-size: 1.3rem;
-
-      .diag-line-show {
-        display: inline-block;
-        position: absolute;
-        top: 1rem;
-        left: 0rem;
-        height: 0rem;
-        width: 2.4rem;
-        border-bottom: 3px solid $diag-line-color;
-
-        transform: rotate(45deg);
-        transition: all 5s ease-in-out;
-        animation: animationDiagLine 2s 1;
-        animation-fill-mode:forwards;
-      }
-
-      .diag-line-hidden {
-        display: none;
-      }
-
-      @keyframes animationDiagLine {
-        0% {opacity: 0; 
-          filter: blur(10px);
-          -webkit-filter: blur(10px);
-          -moz-filter: blur(10px);
-          -ms-filter: blur(10px);
-          }
-        100% {opacity: 1;
-          filter: blur(0px);
-          -webkit-filter: blur(0px);
-          -moz-filter: blur(0px);
-          -ms-filter: blur(0px);
-        }
-      }
-    }
-
-    .char-btn-inactive {
-      background-color: $inactive-btn-color;
-    }
-  }
-
   .showed-correct {
     display: flex;
     justify-content: center;
@@ -128,8 +68,21 @@
   }
 }
 
-@media screen and (max-width: 800px) {
-  .word {
-    min-height: 80vh;
+@media screen and (max-width: 500px) {
+  .input-area {
+    min-height: 90px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .showed-correct {  
+      .letter {
+        border-bottom: 3px solid $main-btn-color;
+        height: 2rem;
+        width: 1.3rem;
+        font-size: 1.5rem;
+      }
+    }
   }
 }

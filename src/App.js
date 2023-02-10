@@ -4,11 +4,13 @@ import Modal from 'react-modal';
 
 import Title from './components/Title';
 import Hangman from './components/Hangman';
-import Word from './components/Word';
+import Keyboard from './components/Keyboard';
+import InputArea from './components/InputArea';
 import Control from './components/Control';
 import Winner from './components/Winner';
 import Loser from './components/Loser';
 
+import GeneralContext from './contexts/GeneralContext';
 import failureSound from './assets/failureSound.wav';
 import correctSound from './assets/correctSound.wav';
 import winnerSound from './assets/winnerSound.wav';
@@ -197,27 +199,50 @@ function App() {
 
   return (
     <div className="app">
-      <Modal
-        isOpen={winner || loser}
-        // onRequestClose={closeModal}
-        appElement={document.getElementById('root')}
-        className="a-modal"
-      >
-        {winner && <Winner onNewGame={newGame}/>}
-        {loser && <Loser onNewGame={newGame}/>}
-      </Modal>
-      <div className='a-title'>
-        <Title />
-      </div>
-      <div className='a-hangman'>
-        <Hangman wrongAnswer={wrongAnswer} endGame={endGame}/>
-      </div>
-      <div className='a-word'>
-        <Word secretWordArr={secretWordArr} setInputLetter={setInputLetter} keyboard={keyboard} endGame={endGame}/>
-      </div>
-      <div className='a-control'>
-        <Control volume={volume} setVolume={setVolume} musicVolume={musicVolume} setMusicVolume={setMusicVolume} setMute={setMute} mute={mute}/>
-      </div>
+      <GeneralContext.Provider value={{secretWordArr, setInputLetter, keyboard, wrongAnswer, endGame, volume, setVolume, musicVolume, setMusicVolume, mute, setMute}}>
+        <Modal
+          isOpen={winner || loser}
+          // onRequestClose={closeModal}
+          appElement={document.getElementById('root')}
+          className="a-modal"
+        >
+          {winner && <Winner onNewGame={newGame}/>}
+          {loser && <Loser onNewGame={newGame}/>}
+        </Modal>
+        <div className='up-800'>
+          <Title />
+          <div className='row-data'>
+            <Hangman />
+            <Keyboard />
+            <Control />
+          </div>
+          <InputArea />
+        </div>
+        <div className='display-500-800'>
+          <Title />
+          <div className='row-data'>
+            <div className='column-data-l'>
+              <Hangman />
+              <Control />
+            </div>
+            <div className='column-data-r'>
+              <Keyboard />
+              <InputArea />
+            </div>
+          </div>
+        </div>
+        <div className='down-500'>
+          <Title />
+          <div className='row-data-u'>
+            <Hangman />
+            <Keyboard />
+          </div>
+          <div className='row-data-d'>
+            <InputArea />
+            <Control />
+          </div>
+        </div>
+      </GeneralContext.Provider>
     </div>
   );
 }
