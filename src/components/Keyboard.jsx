@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useContext } from 'react';
 
 import GeneralContext from "../contexts/GeneralContext";
 import './Keyboard.scss';
