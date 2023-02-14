@@ -64,7 +64,7 @@ function App() {
   console.log(score);
 
   useEffect(() => {
-    if (Object.keys(score).length) {
+    if (score && Object.keys(score).length) {
       localStorage.setItem('point-state', JSON.stringify(score));
     }
   }, [score]);
@@ -83,7 +83,7 @@ function App() {
     // 💡 run new game and ready to get input characters!
 
     const score = JSON.parse(localStorage.getItem('point-state'));
-    if (Object.keys(score).length) {
+    if (score && Object.keys(score).length) {
       setScore({...score, curPoint: 0});
     } else {
       setScore({curPoint:0, best:0});
