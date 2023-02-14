@@ -9,15 +9,30 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: white;
+  position: relative;
 
   .t-title {
     font-family: $title-font-family;
     font-size: 4rem;
-    color: white;
   }
 
   .t-help {
     color: white;
+  }
+  
+  .point {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: absolute;
+    font-size: 1.5rem;
+    top: 30px;
+    right: 30px;
+  }
+  .point > :nth-child(2) {
+    color: $main-btn-color;
   }
 }
 
@@ -32,6 +47,11 @@
   
     .t-help {
       font-size: 1.5rem;
+    }
+    .point {
+      font-size: 0.8rem;
+      top: 15px;
+      right: 15px;
     }
   }
 }

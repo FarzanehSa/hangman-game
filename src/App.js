@@ -60,6 +60,14 @@ function App() {
   const [volume, setVolume] = useState(0.2);
   const [mute, setMute] = useState(false);
   const [musicVolume, setMusicVolume] = useState(0.5);
+  const [score, setScore] = useState({});
+  console.log(score);
+
+  useEffect(() => {
+    if (Object.keys(score).length) {
+      localStorage.setItem('point-state', JSON.stringify(score));
+    }
+  }, [score]);
 
   const newGame = () => {
     // 💡 3 different APIs , set secret word!
@@ -73,6 +81,14 @@ function App() {
 
   useEffect(() => {
     // 💡 run new game and ready to get input characters!
+
+    const score = JSON.parse(localStorage.getItem('point-state'));
+    if (Object.keys(score).length) {
+      setScore({...score, curPoint: 0});
+    } else {
+      setScore({curPoint:0, best:0});
+    }
+
     newGame();
     document.addEventListener("keydown", detectKeyDown, false);
     return () => {
@@ -153,6 +169,9 @@ function App() {
     // 💡 after delay play sound and open modal
     if (secretWordArr.length && !secretWordArr.filter(row => !row.found).length) {
       setEndGame("win");
+      const nowPoint = 6 - wrongAnswer + score.curPoint;
+      const bestPoint = nowPoint > score.best ? nowPoint : score.best;
+      setScore({curPoint: nowPoint, best: bestPoint});
       const timer =  setTimeout(() => {
         const au = new Audio(winnerSound);
         if (!mute) {
@@ -172,6 +191,7 @@ function App() {
     // console.log('❌', wrongAnswer);
     if (wrongAnswer >= 6) {
       setEndGame('lose');
+      setScore({...score, curPoint: 0});
       const timer =  setTimeout(() => {
         const au = new Audio(loserSound);
         if (!mute) {
@@ -199,14 +219,14 @@ function App() {
 
   return (
     <div className="app">
-      <GeneralContext.Provider value={{secretWordArr, setInputLetter, keyboard, wrongAnswer, endGame, volume, setVolume, musicVolume, setMusicVolume, mute, setMute}}>
+      <GeneralContext.Provider value={{secretWordArr, setInputLetter, keyboard, wrongAnswer, endGame, volume, setVolume, musicVolume, setMusicVolume, mute, setMute, score, secretWord}}>
         <Modal
           isOpen={winner || loser}
           // onRequestClose={closeModal}
           appElement={document.getElementById('root')}
           className="a-modal"
         >
-          {winner && <Winner onNewGame={newGame}/>}
+          {winner && <Winner onNewGame={newGame} wrongAnswer={wrongAnswer}/>}
           {loser && <Loser onNewGame={newGame}/>}
         </Modal>
         <div className='up-800'>
