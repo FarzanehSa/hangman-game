@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVolumeLow, faMusic, faQuestion } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +11,7 @@ import './Control.scss';
 
 import music1 from '../assets/music1.mp3';
 import music2 from '../assets/music2.ogg';
-import useAudioPlayer from './useAudioPlayer';
+// import useAudioPlayer from './useAudioPlayer';
 
 const PrettoSlider = styled(Slider)({
   color: '#FFF',
@@ -30,8 +30,16 @@ const PrettoSlider = styled(Slider)({
 const Control = () => {
 
   const {volume, setVolume, musicVolume, setMusicVolume, setMute, mute} = useContext(GeneralContext);
-  const { playing, setPlaying } = useAudioPlayer(musicVolume);
+  // const { playing, setPlaying } = useAudioPlayer(musicVolume);
+  const [playing, setPlaying] = useState(false);
   const [openHelp, setOpenHelp] = useState(false);
+  
+  // const [audio, setAudio] = useState(document.getElementById("music"));
+  // useEffect(() => {
+  //   const audio = new Audio(music2);
+  //   setMu(audio);
+  // }, [])
+ 
 
   const handleVolumeChange = (event, newValue) => {
     setVolume(newValue / 100);
@@ -45,6 +53,37 @@ const Control = () => {
     setOpenHelp(false);
   }
 
+  const audio = document.getElementById("music");
+  useEffect(() => {
+    console.log(playing);
+    // audio.load();
+    if (audio) {
+      
+      
+      if (playing) {
+        audio.play();
+        // audio.volume = musicVolume;
+      } else {
+        console.log('stopppppp');
+        audio.pause();
+      }
+      audio.loop = true;
+    }
+
+  }, [playing, audio])
+
+  useEffect(() => {
+    console.log(musicVolume);
+    if (audio) {
+      
+      
+        audio.volume = musicVolume;
+        setPlaying(true)
+
+    }
+
+  }, [musicVolume, audio])
+  
   return (
     <div className="control">
       <Modal
