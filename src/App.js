@@ -61,13 +61,6 @@ function App() {
   const [mute, setMute] = useState(false);
   const [musicVolume, setMusicVolume] = useState(0.5);
   const [score, setScore] = useState({});
-  console.log(score);
-
-  useEffect(() => {
-    if (score && Object.keys(score).length) {
-      localStorage.setItem('point-state', JSON.stringify(score));
-    }
-  }, [score]);
 
   const newGame = () => {
     // 💡 3 different APIs , set secret word!
@@ -115,8 +108,14 @@ function App() {
       return ({...row, check: 0})
     }));
     closeModal();
-    console.log('🗝', secretWord);
+    // console.log('🗝', secretWord);
   }, [secretWord]);
+
+  useEffect(() => {
+    if (score && Object.keys(score).length) {
+      localStorage.setItem('point-state', JSON.stringify(score));
+    }
+  }, [score]);
 
   useEffect(() => {
     // 💡 1) wrongAnswer should be less than 6 
@@ -219,7 +218,7 @@ function App() {
 
   return (
     <div className="app">
-      <GeneralContext.Provider value={{secretWordArr, setInputLetter, keyboard, wrongAnswer, endGame, volume, setVolume, musicVolume, setMusicVolume, mute, setMute, score, secretWord}}>
+      <GeneralContext.Provider value={{secretWordArr, setInputLetter, keyboard, wrongAnswer, endGame, volume, setVolume, musicVolume, setMusicVolume, mute, setMute, score}}>
         <Modal
           isOpen={winner || loser}
           // onRequestClose={closeModal}
