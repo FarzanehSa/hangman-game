@@ -16,6 +16,7 @@ import correctSound from './assets/correctSound.wav';
 import winnerSound from './assets/winnerSound.wav';
 import loserSound from './assets/loserSound.wav';
 import './App.scss';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -263,6 +264,7 @@ function App() {
             <Control />
           </div>
         </div>
+        <Footer />
       </GeneralContext.Provider>
     </div>
   );

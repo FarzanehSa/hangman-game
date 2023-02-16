@@ -1,0 +1,22 @@
+@import '../styles/_variables.scss';
+
+.footer {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+
+  font-size: 0.8rem;
+  color: $main-btn-color;
+
+  a {
+    cursor: pointer;
+    text-decoration : none;
+    color: $main-btn-color;
+    &:hover {
+      color: $main-btn-color;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+}
