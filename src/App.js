@@ -108,6 +108,8 @@ function App() {
       return ({...row, check: 0})
     }));
     closeModal();
+
+    // 🚨🚨🚨🚨🚨🚨🚨🚨 comment befor push to main
     // console.log('🗝', secretWord);
   }, [secretWord]);
 
