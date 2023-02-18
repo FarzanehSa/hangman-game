@@ -71,7 +71,13 @@ function App() {
     axios.get('https://random-word-api.vercel.app/api?words=1')
     .then(res => {
       setSecretWord(res.data[0]);
-    });
+      closeModal();
+    })
+    .catch (e => {
+      closeModal();
+      setSecretWord("");
+      console.log(e.message);
+    })
   }
 
   useEffect(() => {
@@ -89,7 +95,7 @@ function App() {
     return () => {
       document.removeEventListener('keydown', detectKeyDown);
     };
-  }, []);
+  }, []); // eslint-disable-line
 
   useEffect(() => {
     // 💡 after get the secret word, create the word arr.
@@ -109,10 +115,9 @@ function App() {
     setKeyboard(k => k.map(row => {
       return ({...row, check: 0})
     }));
-    closeModal();
 
     // 🚨🚨🚨🚨🚨🚨🚨🚨 comment befor push to main
-    // console.log('🗝', secretWord);
+    console.log('🗝', secretWord);
   }, [secretWord]);
 
   useEffect(() => {
