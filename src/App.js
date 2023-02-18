@@ -7,6 +7,7 @@ import Hangman from './components/Hangman';
 import Keyboard from './components/Keyboard';
 import InputArea from './components/InputArea';
 import Control from './components/Control';
+import Network from './components/Network';
 import Winner from './components/Winner';
 import Loser from './components/Loser';
 
@@ -238,7 +239,7 @@ function App() {
             <Keyboard />
             <Control />
           </div>
-          <InputArea />
+          {secretWord ? <InputArea /> : <Network />}
         </div>
         <div className='display-500-800'>
           <Title />
@@ -249,7 +250,7 @@ function App() {
             </div>
             <div className='column-data-r'>
               <Keyboard />
-              <InputArea />
+              {secretWord ? <InputArea /> : <Network />}
             </div>
           </div>
         </div>
@@ -260,7 +261,7 @@ function App() {
             <Keyboard />
           </div>
           <div className='row-data-d'>
-            <InputArea />
+          {secretWord ? <InputArea /> : <Network />}
             <Control />
           </div>
         </div>
