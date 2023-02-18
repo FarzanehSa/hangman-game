@@ -117,7 +117,7 @@ function App() {
     }));
 
     // 🚨🚨🚨🚨🚨🚨🚨🚨 comment befor push to main
-    console.log('🗝', secretWord);
+    // console.log('🗝', secretWord);
   }, [secretWord]);
 
   useEffect(() => {
